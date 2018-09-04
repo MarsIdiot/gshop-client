@@ -28,6 +28,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 *day01  2018.9.3
 @autor:tianlang.zhou
 */
+  任务：资源准备(iconfont)、项目搭建(基本目录、stylus的使用)、利用路由搭建基本导航界面
   一直被css困扰，很是苦恼
   
   

@@ -29,3 +29,13 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 @autor:tianlang.zhou
 */
   一直被css困扰，很是苦恼
+  
+  
+/*
+*day01  2018.9.3
+@autor:tianlang.zhou
+*/
+  页面排版格式不对——终于解决了！！
+  原因：mixins.styl文件中的bottom-border-1px($color)缩进错误。
+      导致带有此class的每个元素，在Y方向被压缩为原来的一半
+  由于此问题，困扰了一下午+一上午，差点崩溃了。

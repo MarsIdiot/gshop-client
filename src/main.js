@@ -9,11 +9,14 @@ import App from './App'
 //引入路由  注册路由
 import router from './router'
 
+//引入vuex,注册store
+import  store from './store'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   /*components: { App },
   template: '<App/>'*/
   render:h=>h(App),
-  router  //注册路由
+  router ,//注册路由
+  store
 })

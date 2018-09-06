@@ -41,7 +41,7 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -66,7 +66,7 @@
       name: "Login",
       data() {
         return {
-          loginWay: true, //true代表短信登录，flase代表密码登录
+          loginWay: false, //true代表短信登录，flase代表密码登录
           countTime:0,//计时
           showpwd:false,//是否显示密码
 
@@ -83,17 +83,22 @@
         }
       },
       computed:{
+        //验证手机号
         right_phone(){
           return /^\d{11}$/.test(this.phone)
         }
       },
       methods: {
+        //短信登录
         loginSwitch1() {
           this.loginWay = true
         },
+        //密码登录
         loginSwitch2() {
           this.loginWay = false
         },
+
+        //发生短信验证码
         getCode(){
           //如果当前没有计时，才开始计时
           if(!this.countTime){
@@ -109,6 +114,8 @@
             //2.发送短信
           }
         },
+
+        //登录
         login(){
           const {loginWay}=this
           //不同登录方式的验证
@@ -140,9 +147,15 @@
             }
           }
         },
+        //关闭弹窗
         closeTip(){
           this.alertTipShow=false
           this.alertText=''
+        },
+
+        //获取图像验证码
+        getCaptcha(event){
+          event.target.src='http://localhost:4000/captcha?time='+Date()
         }
 
       },

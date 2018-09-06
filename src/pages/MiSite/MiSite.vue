@@ -7,7 +7,7 @@
           <i class="iconfont icon-sousuo"></i>
         </span>
         <span class="header_login"  slot="right">
-          <router-link to="/login" class="header_login_text">登录|注册</router-link>
+          <router-link to="/login" class="header_login_text">{{userInfo? `${userInfo.phone}`:'登录|注册'}}</router-link>
         </span>
       </HeaderTop>
       <!--首页导航-->
@@ -76,7 +76,7 @@
       }
     },
     computed:{
-      ...mapState(['address','categorys','shops']),
+      ...mapState(['address','categorys','shops','userInfo']),
 
       categorysArr(){
         //需要拆分的数组

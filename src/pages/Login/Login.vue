@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <section class="loginContainer">
     <div class="loginInner">
@@ -41,7 +42,7 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
+                <img ref="captcha" class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -62,6 +63,7 @@
 <script>
 
   import AlertTip from '../../components/AlertTip/AlertTip.vue'
+  import {reqSendcode,reqSmsLogin,reqPwdLogin} from '../../api'
   export default {
       name: "Login",
       data() {
@@ -99,25 +101,40 @@
         },
 
         //发生短信验证码
-        getCode(){
+        async getCode(){
           //如果当前没有计时，才开始计时
           if(!this.countTime){
             //1.启动倒计时
             this.countTime=30
-            const intervalID=setInterval(()=>{
+            this.intervalID=setInterval(()=>{
               this.countTime--
               if(this.countTime<=0){
-                clearInterval(intervalID)
+                clearInterval(this.intervalID)
               }
 
             },1000)
             //2.发送短信
+           const result=await reqSendcode(this.phone)
+            //发送失败
+            if(result.code===1){
+              //提示显示
+              this.alertTipShow=true
+              this.alertText=result.msg
+              //停止计时
+              if(this.countTime){
+                this.countTime=0
+                clearInterval(this.intervalID)
+              }
+            }
+
           }
         },
 
         //登录
-        login(){
+        async login(){
           const {loginWay}=this
+
+          let result
           //不同登录方式的验证
           if(loginWay){//短信登录校验
             const {right_phone,phone,code}=this
@@ -125,17 +142,23 @@
               //手机号不正确
               this.alertTipShow=true
               this.alertText='手机号不正确'
+              return
             }else if(!/^\d{6}$/.test(code)){
               //短信验证码必须是6为数字
               this.alertTipShow=true
               this.alertText='短信验证码必须是6为数字'
+              return
             }
+            //短信验证登录
+            result=await reqSmsLogin(phone,code)
+
           }else {//密码登录校验
             const {name,pwd,captcha}=this
             if(!name){
               //用户名不正确
               this.alertTipShow=true
               this.alertText='用户名不正确'
+              return
             }else if(!pwd){
               //密码不正确
               this.alertTipShow=true
@@ -144,8 +167,33 @@
               //图形验证码不正确
               this.alertTipShow=true
               this.alertText='图形验证码不正确'
+              return
             }
+            //密码验证登录
+            result=await reqPwdLogin(name,pwd,captcha)
           }
+          //停止计时
+          if(this.countTime){
+            this.countTime=0
+            clearInterval(this.intervalID)
+          }
+
+          //根据数据结果处理
+          if(result.code===1){//登录失败
+            //刷新图形验证码
+            this.getCaptcha()
+            this.alertTipShow=true
+            this.alertText=result.msg
+
+          }else if(result.code===0){//登录成功
+            const userInfo=result.data
+            //将user保存到vuex的store
+            this.$store.dispatch('saveUserInfo',userInfo)
+            //跳转到个人中心
+            this.$router.replace('./profile')
+          }
+
+
         },
         //关闭弹窗
         closeTip(){
@@ -154,8 +202,8 @@
         },
 
         //获取图像验证码
-        getCaptcha(event){
-          event.target.src='http://localhost:4000/captcha?time='+Date()
+        getCaptcha(){
+          this.$refs.captcha.src='http://localhost:4000/captcha?time='+Date()
         }
 
       },

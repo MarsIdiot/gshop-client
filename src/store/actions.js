@@ -4,14 +4,15 @@
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_USERINFO
 } from './mutation-types'
 
 //引入api
 import {
   reqAddress,
   reqFoodCategorys,
-  reqShops
+  reqShops,
 } from '../api'
 export default {
 
@@ -49,6 +50,12 @@ export default {
       const shops=result.data
       commit(RECEIVE_SHOPS,{shops})
     }
+  },
+  //保存用户信息
+  async saveUserInfo({commit},userInfo){
+    //提交一个mutation
+      commit(RECEIVE_USERINFO,{userInfo})
+
   },
 
 }

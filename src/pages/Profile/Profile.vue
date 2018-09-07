@@ -9,12 +9,12 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">{{userInfo? `${userInfo.phone}`:'暂无绑定手机号'}}</p>
+          <p class="user-info-top">{{phoneOrName||'登录|注册'}}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
             </span>
-            <span class="icon-mobile-number">{{userInfo? `${userInfo.phone}`:'暂无绑定手机号'}}</span>
+            <span class="icon-mobile-number">{{userInfo.phone||'暂无绑定手机号'}}</span>
           </p>
         </div>
         <span class="arrow">
@@ -101,6 +101,15 @@
     name: "Profile",
     computed: {
       ...mapState(['userInfo']),
+      //判断登录的用户是手机号登录还是密码登录
+      phoneOrName() {
+        const {userInfo} = this
+        if (userInfo.name) {//手机用户，用户名显示id
+          return userInfo.name
+        } else  {//密码登录，用户名显示name
+          return userInfo._id
+        }
+      }
     },
     components:{
       HeaderTop

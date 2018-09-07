@@ -150,7 +150,7 @@
               return
             }
             //短信验证登录
-            result=await reqSmsLogin(phone,code)
+            result=await reqSmsLogin({phone,code})
 
           }else {//密码登录校验
             const {name,pwd,captcha}=this
@@ -170,7 +170,7 @@
               return
             }
             //密码验证登录
-            result=await reqPwdLogin(name,pwd,captcha)
+            result=await reqPwdLogin({name,pwd,captcha})
           }
           //停止计时
           if(this.countTime){
@@ -182,8 +182,9 @@
           if(result.code===1){//登录失败
             //刷新图形验证码
             this.getCaptcha()
-            this.alertTipShow=true
             this.alertText=result.msg
+            this.alertTipShow=true
+            return
 
           }else if(result.code===0){//登录成功
             const userInfo=result.data

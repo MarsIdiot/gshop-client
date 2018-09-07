@@ -7,7 +7,7 @@
           <i class="iconfont icon-sousuo"></i>
         </span>
         <span class="header_login"  slot="right">
-          <router-link to="/login" class="header_login_text">{{userInfo? `${userInfo.phone}`:'登录|注册'}}</router-link>
+          <router-link to="/login" class="header_login_text">{{phoneOrName||'登录|注册'}}</router-link>
         </span>
       </HeaderTop>
       <!--首页导航-->
@@ -75,31 +75,40 @@
       })
       }
     },
-    computed:{
-      ...mapState(['address','categorys','shops','userInfo']),
+    computed: {
+      ...mapState(['address', 'categorys', 'shops', 'userInfo']),
 
-      categorysArr(){
+      //食品分类信息——一维数组拆分为二维数组
+      categorysArr() {
         //需要拆分的数组
-        const {categorys}=this
+        const {categorys} = this
         //创建大的数组，用于存下的数组[][]
-        const arr=[]
+        const arr = []
         //创建小的数组，用于存category的数组[]
-        let minArr=[] //此处不能用const,需要创建新的
-        categorys.forEach(c=>{
+        let minArr = [] //此处不能用const,需要创建新的
+        categorys.forEach(c => {
           //判断小数组是否装满了n个，此处设置为8，满了之后创建新的小数组
-          if(minArr.length===8){
-            minArr=[]
+          if (minArr.length === 8) {
+            minArr = []
           }
           //判断是否为空，为空则装入大数组
-          if(minArr.length===0){
+          if (minArr.length === 0) {
             arr.push(minArr)
           }
           //将元素存入小数组
           minArr.push(c)
         })
         return arr
-      }
-
+      },
+      //判断登录的用户是手机号登录还是密码登录
+      phoneOrName() {
+        const {userInfo} = this
+          if (userInfo.name) {//手机用户，用户名显示id
+            return userInfo.name
+          } else  {//密码登录，用户名显示name
+            return userInfo._id
+          }
+        }
     },
     components:{
       HeaderTop,

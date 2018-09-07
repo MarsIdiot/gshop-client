@@ -10,7 +10,7 @@
         </div>
         <div class="user-info">
           <p class="user-info-top">{{phoneOrName||'登录|注册'}}</p>
-          <p>
+          <p v-show="!userInfo.phone">
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
             </span>
@@ -107,7 +107,7 @@
         if (userInfo.name) {//手机用户，用户名显示id
           return userInfo.name
         } else  {//密码登录，用户名显示name
-          return userInfo._id
+          return userInfo.phone
         }
       }
     },

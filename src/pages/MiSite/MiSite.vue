@@ -106,7 +106,7 @@
           if (userInfo.name) {//手机用户，用户名显示id
             return userInfo.name
           } else  {//密码登录，用户名显示name
-            return userInfo._id
+            return userInfo.phone
           }
         }
     },

@@ -4,7 +4,7 @@
     <HeaderTop title="我的"/>
 
     <section class="profile-number">
-      <router-link to="/login" class="profile-link">
+      <router-link :to="userInfo._id? '/userInfo':'/login'" class="profile-link">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
@@ -91,12 +91,17 @@
         </div>
       </a>
     </section>
+    <section class="profile_my_order border-1px" @click="logout" v-show="userInfo._id">
+      <mt-button type="danger" style="width:100%">退出登录</mt-button>
+    </section>
   </div>
 </template>
 
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
   import {mapState} from 'vuex'
+
+  import { MessageBox} from 'mint-ui';
   export default {
     name: "Profile",
     computed: {
@@ -109,6 +114,13 @@
         } else  {//密码登录，用户名显示name
           return userInfo.phone
         }
+      }
+    },
+    methods:{
+      logout(){
+        MessageBox.confirm('确定退出登陆吗？').then(action=>{
+          this.$store.dispatch('logout')
+        })
       }
     },
     components:{

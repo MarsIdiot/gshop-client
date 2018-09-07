@@ -3,12 +3,18 @@
     <section class="msite">
       <!--首页头部-->
       <HeaderTop :title="address.name">
-        <span class="header_search" slot="left">
+        <router-link to="/search" class="header_search" slot="left">
           <i class="iconfont icon-sousuo"></i>
-        </span>
-        <span class="header_login"  slot="right">
-          <router-link to="/login" class="header_login_text">{{phoneOrName||'登录|注册'}}</router-link>
-        </span>
+        </router-link>
+        <!--<span class="header_login"  slot="right">
+          <router-link :to="userInfo._id ? '/userInfo':'/login'" class="header_login_text">{{phoneOrName||'登录|注册'}}</router-link>
+        </span>-->
+
+        <router-link  :to="userInfo._id ? '/userInfo':'/login'" class="header_login"  slot="right">
+          <span class="header_login_text" v-if="!userInfo._id">登录|注册</span>
+          <i class="iconfont icon-person" v-else></i>
+        </router-link >
+
       </HeaderTop>
       <!--首页导航-->
       <nav class="msite_nav">

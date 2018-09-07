@@ -1,46 +1,48 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length" >
-      <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index" >
-        <a>
-          <div class="shop_left">
-            <img class="shop_img" src="./images/shop/4.jpg">
-            <!--<img class="shop_img" :src="baseImageUrl+shop.image_path">-->
-            <!--http://cangdu.org:8001/img/16018a5c08533.jpeg-->
-          </div>
-          <div class="shop_right">
-            <section class="shop_detail_header">
-              <h4 class="shop_title ellipsis">{{shop.name}}</h4>
-              <ul class="shop_detail_ul">
-                <li class="supports" v-for="(support) in shop.supports">
-                  {{support.icon_name}}
-                </li>
-              </ul>
-            </section>
-            <section class="shop_rating_order">
-              <section class="shop_rating_order_left">
-                <Star :score="shop.rating" :size="24"/>
-                <div class="rating_section">
-                  {{shop.rating}}
-                </div>
-                <div class="order_section">
-                  月售{{shop.recent_order_num}}单
-                </div>
+      <router-link to="/shop">
+        <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index" >
+          <a>
+            <div class="shop_left">
+              <img class="shop_img" src="./images/shop/4.jpg">
+              <!--<img class="shop_img" :src="baseImageUrl+shop.image_path">-->
+              <!--http://cangdu.org:8001/img/16018a5c08533.jpeg-->
+            </div>
+            <div class="shop_right">
+              <section class="shop_detail_header">
+                <h4 class="shop_title ellipsis">{{shop.name}}</h4>
+                <ul class="shop_detail_ul">
+                  <li class="supports" v-for="(support) in shop.supports">
+                    {{support.icon_name}}
+                  </li>
+                </ul>
               </section>
-              <section class="shop_rating_order_right">
-                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+              <section class="shop_rating_order">
+                <section class="shop_rating_order_left">
+                  <Star :score="shop.rating" :size="24"/>
+                  <div class="rating_section">
+                    {{shop.rating}}
+                  </div>
+                  <div class="order_section">
+                    月售{{shop.recent_order_num}}单
+                  </div>
+                </section>
+                <section class="shop_rating_order_right">
+                  <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                </section>
               </section>
-            </section>
-            <section class="shop_distance">
-              <p class="shop_delivery_msg">
-                <span>¥{{shop.float_minimum_order_amount}}起送</span>
-                <span class="segmentation">/</span>
-                <span>配送费约¥{{shop.float_delivery_fee}}</span>
-              </p>
-            </section>
-          </div>
-        </a>
-      </li>
+              <section class="shop_distance">
+                <p class="shop_delivery_msg">
+                  <span>¥{{shop.float_minimum_order_amount}}起送</span>
+                  <span class="segmentation">/</span>
+                  <span>配送费约¥{{shop.float_delivery_fee}}</span>
+                </p>
+              </section>
+            </div>
+          </a>
+        </li>
+      </router-link>
     </ul>
     <ul v-else>
       <li v-for="item in 6">

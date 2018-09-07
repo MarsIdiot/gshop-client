@@ -11,6 +11,15 @@ import router from './router'
 
 //引入vuex,注册store
 import  store from './store'
+
+//引入mint-ui的button组件
+import {Button} from 'mint-ui'
+
+//注册button组件
+Vue.component(Button.name, Button)//mt-button
+
+//加载mockServer即可
+import './mock/mockServer.js'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

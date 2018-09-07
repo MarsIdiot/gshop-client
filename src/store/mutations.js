@@ -4,7 +4,13 @@
 import {RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
-  RECEIVE_USERINFO
+  SAVE_USERINFO,
+  RECEIVE_USERINFO,
+  LOGOUT,
+
+  RECEIVE_GOODS,
+  RECEIVE_INFO,
+  RECEIVE_RATINGS
 } from './mutation-types'
 export default {
   [RECEIVE_ADDRESS](state,{address}){
@@ -16,8 +22,26 @@ export default {
   [RECEIVE_SHOPS](state,{shops}){
     state.shops=shops
   },
+  [SAVE_USERINFO](state,{userInfo}){
+    state.userInfo=userInfo
+  },
   [RECEIVE_USERINFO](state,{userInfo}){
     state.userInfo=userInfo
+  },
+  [LOGOUT](state){
+    state.userInfo={}
+  },
+  /*
+  mockjs数据
+   */
+  [RECEIVE_INFO](state, {info}) {
+    state.info = info
+  },
+  [RECEIVE_RATINGS](state, {ratings}) {
+    state.ratings = ratings
+  },
+  [RECEIVE_GOODS](state, {goods}) {
+    state.goods = goods
   },
 
 }

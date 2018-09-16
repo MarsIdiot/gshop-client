@@ -99,11 +99,12 @@ export default {
     }
   },
   // 异步获取商家评价列表
-  async getShopRatings({commit}, cb) {
+  async getShopRatings({commit}, callBack) {
     const result = await reqShopRatings()
     if(result.code===0) {
       const ratings = result.data
       commit(RECEIVE_RATINGS, {ratings})
+      callBack&&callBack()
     }
   },
   // 异步获取商家商品列表

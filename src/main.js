@@ -21,6 +21,18 @@ Vue.component(Button.name, Button)//mt-button
 //加载mockServer即可
 import './mock/mockServer.js'
 /* eslint-disable no-new */
+
+//图片懒加载
+import VueLazyload from 'vue-lazyload'
+import loading from './common/imgs/loading.gif'
+Vue.use(VueLazyload,{
+  loading
+})
+
+//加载过滤器
+import './filters/index.js'
+
+
 new Vue({
   el: '#app',
   /*components: { App },

@@ -14,7 +14,9 @@ import {
   RECEIVE_RATINGS,
 
   INCREASE_FOODCOUNT,
-  DECREASE_FOODCOUNT
+  DECREASE_FOODCOUNT,
+
+  RECEIVE_SEARCHSHOPS
 } from './mutation-types'
 
 //引入api
@@ -28,6 +30,8 @@ import {
   reqShopInfo,
   reqShopGoods,
   reqShopRatings,
+
+  reqSearchShops,
 
 
 } from '../api'
@@ -133,5 +137,17 @@ export default {
   },
 
 
+
+  //获取搜索商家列表信息
+  async getSearchShops({commit,state},keyword){
+    //发送异步请求
+    const geohash=state.latitude+','+state.longitude
+    const result= await reqSearchShops({geohash,keyword})
+    //提交一个mutation
+    if(result.code===0){
+      const rearchShops=result.data
+      commit(RECEIVE_SEARCHSHOPS,{rearchShops})
+    }
+  },
 
 }

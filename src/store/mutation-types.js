@@ -17,3 +17,8 @@ export const RECEIVE_INFO = 'receive_info' // 接收商家信息
 export const INCREASE_FOODCOUNT = 'increase_foodcount' // 增加food数量
 export const DECREASE_FOODCOUNT = 'decrease_foodcount' // 减少food数量
 
+
+// reqSearchShops
+export const RECEIVE_SEARCHSHOPS = 'receive_searchshops' // 接收搜索商品数组
+
+

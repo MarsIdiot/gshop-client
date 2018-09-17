@@ -15,7 +15,9 @@ import {RECEIVE_ADDRESS,
   RECEIVE_RATINGS,
 
   INCREASE_FOODCOUNT,
-  DECREASE_FOODCOUNT
+  DECREASE_FOODCOUNT,
+
+  RECEIVE_SEARCHSHOPS,
 } from './mutation-types'
 export default {
   [RECEIVE_ADDRESS](state,{address}){
@@ -61,4 +63,10 @@ export default {
       food.count--
     }
   },
+
+
+  [RECEIVE_SEARCHSHOPS](state, {rearchShops}) {
+    state.rearchShops=rearchShops
+  },
+
 }

@@ -17,10 +17,10 @@
           <li class="food-list-hook" v-for="(good , index) in goods" :key="index"><!--food-list-hook-->
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" :key="index">
+              <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" :key="index" >
                 <div class="icon">
                   <img width="57" height="57"
-                       :src="food.icon">
+                       :src="food.icon" @click="showFood(food)">
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -42,6 +42,7 @@
         </ul>
       </div>
     </div>
+    <Food ref="food" :food="food"/>
   </div>
 </template>
 
@@ -51,12 +52,15 @@
 
   import CartControl from '../../../components/Cartcontrol/CartControl.vue'
 
+  import Food from '../../../components/Food/Food.vue'
+
   export default {
     name: "ShopGoods",
     data(){
       return{
         scrollY:0,//当前坐标Y
         tops:[],//每个分类的高度数组，当页面第一次渲染完成后就确定
+        food:{},//食物信息对象
       }
     },
     mounted(){
@@ -120,10 +124,20 @@
         //根据index去改变scrollY的值
         const y=- this.tops[index]
         this.foodsScroll.scrollTo(0,y,300)
+      },
+
+      //food弹窗的显示或隐藏
+      showFood(food){
+        //将当前food信息更新
+        this.food=food
+        //显示/隐藏
+        this.$refs.food.foodToggle()
+
       }
     },
     components:{
-      CartControl
+      CartControl,
+      Food,
     }
   }
 </script>

@@ -11,7 +11,10 @@ import {
 
   RECEIVE_GOODS,
   RECEIVE_INFO,
-  RECEIVE_RATINGS
+  RECEIVE_RATINGS,
+
+  INCREASE_FOODCOUNT,
+  DECREASE_FOODCOUNT
 } from './mutation-types'
 
 //引入api
@@ -24,7 +27,9 @@ import {
 
   reqShopInfo,
   reqShopGoods,
-  reqShopRatings
+  reqShopRatings,
+
+
 } from '../api'
 export default {
 
@@ -107,13 +112,25 @@ export default {
     }
   },
   // 异步获取商家商品列表
-  async getShopGoods({commit}) {
+  async getShopGoods({commit},callback) {
     const result = await reqShopGoods()
     if(result.code===0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})
+      callback&&callback()
     }
   },
+
+  //同步更新food
+   updateCartcontrol({commit},{isAdd,food}) {
+    //如果isAdd为true,则增加，否则减少
+    if(isAdd){
+      commit(INCREASE_FOODCOUNT, {food})
+    }else {
+      commit(DECREASE_FOODCOUNT, {food})
+    }
+  },
+
 
 
 }

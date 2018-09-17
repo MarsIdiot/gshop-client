@@ -1,6 +1,8 @@
 /**
  * 直接更新数据状态的函数对象
  */
+
+import  Vue from 'vue'
 import {RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
@@ -10,7 +12,10 @@ import {RECEIVE_ADDRESS,
 
   RECEIVE_GOODS,
   RECEIVE_INFO,
-  RECEIVE_RATINGS
+  RECEIVE_RATINGS,
+
+  INCREASE_FOODCOUNT,
+  DECREASE_FOODCOUNT
 } from './mutation-types'
 export default {
   [RECEIVE_ADDRESS](state,{address}){
@@ -44,4 +49,16 @@ export default {
     state.goods = goods
   },
 
+  [INCREASE_FOODCOUNT](state,{food}) {
+    if(!food.count){//第一次
+      Vue.set(food,'count',1)
+    }else {
+      food.count++
+    }
+  },
+  [DECREASE_FOODCOUNT](state, {food}) {
+    if(food.count){//大于等于1才减
+      food.count--
+    }
+  },
 }

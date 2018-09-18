@@ -41,6 +41,7 @@
 
         </ul>
       </div>
+      <ShopCart/>
     </div>
     <Food ref="food" :food="food"/>
   </div>
@@ -53,6 +54,8 @@
   import CartControl from '../../../components/Cartcontrol/CartControl.vue'
 
   import Food from '../../../components/Food/Food.vue'
+
+  import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
   export default {
     name: "ShopGoods",
@@ -131,13 +134,13 @@
         //将当前food信息更新
         this.food=food
         //显示/隐藏
-        this.$refs.food.foodToggle()
-
+        this.$refs.food.foodToggle
       }
     },
     components:{
       CartControl,
       Food,
+      ShopCart
     }
   }
 </script>

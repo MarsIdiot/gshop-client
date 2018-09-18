@@ -18,6 +18,8 @@ import {RECEIVE_ADDRESS,
   DECREASE_FOODCOUNT,
 
   RECEIVE_SEARCHSHOPS,
+
+  CLEAR_CART,
 } from './mutation-types'
 export default {
   [RECEIVE_ADDRESS](state,{address}){
@@ -54,6 +56,8 @@ export default {
   [INCREASE_FOODCOUNT](state,{food}) {
     if(!food.count){//第一次
       Vue.set(food,'count',1)
+      //此时，food有count属性，说明count>0，则将此food添加到cartFoods
+      state.cartFoods.push(food)
     }else {
       food.count++
     }
@@ -61,12 +65,25 @@ export default {
   [DECREASE_FOODCOUNT](state, {food}) {
     if(food.count){//大于等于1才减
       food.count--
+
+      //如果count<0,则为了方便统计，则从cartFoods中删除food
+      if(food.count===0){
+        state.cartFoods.splice(state.cartFoods.indexOf(food),1)
+      }
     }
   },
 
 
   [RECEIVE_SEARCHSHOPS](state, {rearchShops}) {
     state.rearchShops=rearchShops
+  },
+
+  //清空购物车
+  [CLEAR_CART](state) {
+    //去除food中的count属性
+    state.cartFoods.forEach(food=>food.count=0)//必须做此步，否则count中还有值，下次会受影响
+    //清空购物项
+    state.cartFoods=[]
   },
 
 }

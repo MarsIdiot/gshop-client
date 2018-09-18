@@ -121,7 +121,7 @@
         return  ratings.filter(rating=> rating.rateType===0).length
       }
     },
-    comments:{
+    components:{
       Star
     },
 

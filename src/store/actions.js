@@ -16,7 +16,9 @@ import {
   INCREASE_FOODCOUNT,
   DECREASE_FOODCOUNT,
 
-  RECEIVE_SEARCHSHOPS
+  RECEIVE_SEARCHSHOPS,
+
+  CLEAR_CART,
 } from './mutation-types'
 
 //引入api
@@ -149,5 +151,10 @@ export default {
       commit(RECEIVE_SEARCHSHOPS,{rearchShops})
     }
   },
+
+  //同步清空购物车
+  clearCart({commit}){
+    commit(CLEAR_CART)
+  }
 
 }

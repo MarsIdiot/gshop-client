@@ -44,7 +44,7 @@
         this.isShow=!this.isShow
       }
     },
-    components(){
+    components:{
       CartControl
     }
   }

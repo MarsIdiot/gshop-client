@@ -17,4 +17,6 @@ export default {
 
   searchShops:[],//搜索商家列表
 
+  cartFoods:[],//购物车food数组
+
 }

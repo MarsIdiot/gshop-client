@@ -21,4 +21,7 @@ export const DECREASE_FOODCOUNT = 'decrease_foodcount' // 减少food数量
 // reqSearchShops
 export const RECEIVE_SEARCHSHOPS = 'receive_searchshops' // 接收搜索商品数组
 
+//CLEAR_CART
+export const CLEAR_CART = 'clear_cart' // 清空购物车
+
 
